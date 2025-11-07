@@ -1,0 +1,67 @@
+    [92;1mCreating[0m FAT32 disk image "disk.img" ...
+mkfs.fat 4.2 (2021-01-31)
+    [92;1mBuilding[0m App: print_with_color, Arch: riscv64, Platform: riscv64-qemu-virt, App type: rust
+[37mcargo -C exercises/print_with_color/ build[0m [90m-Z unstable-options --target riscv64gc-unknown-none-elf --target-dir /home/alin/codework/2025a-arceos-future-re/arceos/target --release  --features "axstd/log-level-warn"[0m
+[37mrust-objcopy --binary-architecture=riscv64[0m [90mexercises/print_with_color//print_with_color_riscv64-qemu-virt.elf --strip-all -O binary exercises/print_with_color//print_with_color_riscv64-qemu-virt.bin[0m
+    [96;1mRunning[0m on qemu...
+[37mqemu-system-riscv64[0m [90m-m 128M -smp 1 -machine virt -bios default -kernel exercises/print_with_color//print_with_color_riscv64-qemu-virt.bin -drive if=pflash,file=/home/alin/codework/2025a-arceos-future-re/arceos/pflash.img,format=raw,unit=1 -nographic -D qemu.log -d in_asm,int,mmu,pcall,cpu_reset,guest_errors[0m
+Has color
+No Hello, Arceos!
+print_with_color fault
+    [92;1mCreating[0m FAT32 disk image "disk.img" ...
+mkfs.fat 4.2 (2021-01-31)
+    [92;1mBuilding[0m App: ramfs_rename, Arch: riscv64, Platform: riscv64-qemu-virt, App type: rust
+[37mcargo -C exercises/ramfs_rename/ build[0m [90m-Z unstable-options --target riscv64gc-unknown-none-elf --target-dir /home/alin/codework/2025a-arceos-future-re/arceos/target --release  --features "axstd/log-level-warn"[0m
+[37mrust-objcopy --binary-architecture=riscv64[0m [90mexercises/ramfs_rename//ramfs_rename_riscv64-qemu-virt.elf --strip-all -O binary exercises/ramfs_rename//ramfs_rename_riscv64-qemu-virt.bin[0m
+    [96;1mRunning[0m on qemu...
+[37mqemu-system-riscv64[0m [90m-m 128M -smp 1 -machine virt -bios default -kernel exercises/ramfs_rename//ramfs_rename_riscv64-qemu-virt.bin -drive if=pflash,file=/home/alin/codework/2025a-arceos-future-re/arceos/pflash.img,format=raw,unit=1 -device virtio-blk-pci,drive=disk0 -drive id=disk0,if=none,format=raw,file=disk.img -nographic -D qemu.log -d in_asm,int,mmu,pcall,cpu_reset,guest_errors[0m
+ramfs_rename fault
+    [92;1mCreating[0m FAT32 disk image "disk.img" ...
+mkfs.fat 4.2 (2021-01-31)
+    [92;1mBuilding[0m App: alt_alloc, Arch: riscv64, Platform: riscv64-qemu-virt, App type: rust
+[37mcargo -C exercises/alt_alloc/ build[0m [90m-Z unstable-options --target riscv64gc-unknown-none-elf --target-dir /home/alin/codework/2025a-arceos-future-re/arceos/target --release  --features "axstd/log-level-warn"[0m
+[37mrust-objcopy --binary-architecture=riscv64[0m [90mexercises/alt_alloc//alt_alloc_riscv64-qemu-virt.elf --strip-all -O binary exercises/alt_alloc//alt_alloc_riscv64-qemu-virt.bin[0m
+    [96;1mRunning[0m on qemu...
+[37mqemu-system-riscv64[0m [90m-m 128M -smp 1 -machine virt -bios default -kernel exercises/alt_alloc//alt_alloc_riscv64-qemu-virt.bin -drive if=pflash,file=/home/alin/codework/2025a-arceos-future-re/arceos/pflash.img,format=raw,unit=1 -nographic -D qemu.log -d in_asm,int,mmu,pcall,cpu_reset,guest_errors[0m
+alt_alloc default
+    [92;1mCreating[0m FAT32 disk image "disk.img" ...
+mkfs.fat 4.2 (2021-01-31)
+    [92;1mBuilding[0m App: support_hashmap, Arch: riscv64, Platform: riscv64-qemu-virt, App type: rust
+[37mcargo -C exercises/support_hashmap/ build[0m [90m-Z unstable-options --target riscv64gc-unknown-none-elf --target-dir /home/alin/codework/2025a-arceos-future-re/arceos/target --release  --features "axstd/log-level-warn"[0m
+support_hashmap default
+    [92;1mCreating[0m FAT32 disk image "disk.img" ...
+mkfs.fat 4.2 (2021-01-31)
+make[1]: Entering directory '/home/alin/codework/2025a-arceos-future-re/arceos/payload'
+make -C origin
+make[2]: Entering directory '/home/alin/codework/2025a-arceos-future-re/arceos/payload/origin'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/alin/codework/2025a-arceos-future-re/arceos/payload/origin'
+make -C hello_c
+make[2]: Entering directory '/home/alin/codework/2025a-arceos-future-re/arceos/payload/hello_c'
+riscv64-linux-musl-gcc -static hello.c -o hello
+make[2]: Leaving directory '/home/alin/codework/2025a-arceos-future-re/arceos/payload/hello_c'
+make[1]: Leaving directory '/home/alin/codework/2025a-arceos-future-re/arceos/payload'
+File 'payload/mapfile_c/mapfile' doesn't exist!
+    [92;1mBuilding[0m App: sys_map, Arch: riscv64, Platform: riscv64-qemu-virt, App type: rust
+[37mcargo -C exercises/sys_map/ build[0m [90m-Z unstable-options --target riscv64gc-unknown-none-elf --target-dir /home/alin/codework/2025a-arceos-future-re/arceos/target --release  --features "axstd/log-level-warn"[0m
+sys_mmap default
+    [92;1mCreating[0m FAT32 disk image "disk.img" ...
+mkfs.fat 4.2 (2021-01-31)
+make[1]: Entering directory '/home/alin/codework/2025a-arceos-future-re/arceos/payload'
+make -C origin
+make[2]: Entering directory '/home/alin/codework/2025a-arceos-future-re/arceos/payload/origin'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/alin/codework/2025a-arceos-future-re/arceos/payload/origin'
+make -C hello_c
+make[2]: Entering directory '/home/alin/codework/2025a-arceos-future-re/arceos/payload/hello_c'
+riscv64-linux-musl-gcc -static hello.c -o hello
+make[2]: Leaving directory '/home/alin/codework/2025a-arceos-future-re/arceos/payload/hello_c'
+make[1]: Leaving directory '/home/alin/codework/2025a-arceos-future-re/arceos/payload'
+File 'payload/skernel2/skernel2' doesn't exist!
+    [92;1mBuilding[0m App: simple_hv, Arch: riscv64, Platform: riscv64-qemu-virt, App type: rust
+[37mcargo -C exercises/simple_hv/ build[0m [90m-Z unstable-options --target riscv64gc-unknown-none-elf --target-dir /home/alin/codework/2025a-arceos-future-re/arceos/target --release  --features "axstd/log-level-warn"[0m
+[37mrust-objcopy --binary-architecture=riscv64[0m [90mexercises/simple_hv//simple_hv_riscv64-qemu-virt.elf --strip-all -O binary exercises/simple_hv//simple_hv_riscv64-qemu-virt.bin[0m
+    [96;1mRunning[0m on qemu...
+[37mqemu-system-riscv64[0m [90m-m 128M -smp 1 -machine virt -bios default -kernel exercises/simple_hv//simple_hv_riscv64-qemu-virt.bin -drive if=pflash,file=/home/alin/codework/2025a-arceos-future-re/arceos/pflash.img,format=raw,unit=1 -device virtio-blk-pci,drive=disk0 -drive id=disk0,if=none,format=raw,file=disk.img -nographic -D qemu.log -d in_asm,int,mmu,pcall,cpu_reset,guest_errors[0m
+simple_hv default
+0

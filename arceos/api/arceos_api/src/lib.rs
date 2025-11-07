@@ -49,6 +49,16 @@ pub mod time {
     }
 }
 
+/// Randomness utilities.
+pub mod rand {
+    define_api! {
+        /// Returns a 128-bit pseudo-random value.
+        ///
+        /// The underlying implementation is provided by the platform via `axhal`.
+        pub fn ax_random_u128() -> u128;
+    }
+}
+
 /// Memory management.
 pub mod mem {
     use core::{alloc::Layout, ptr::NonNull};
