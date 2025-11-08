@@ -3,9 +3,5 @@ name = "support_hashmap"
 version = "0.1.0"
 edition = "2021"
 
-[features]
-# Enable axstd by default so the exercise runs under ArceOS without extra flags.
-default = ["dep:axstd"]
-
 [dependencies]
 axstd = { workspace = true, features = ["alloc"], optional = true }
