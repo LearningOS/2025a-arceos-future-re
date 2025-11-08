@@ -24,8 +24,17 @@ mod stdio {
     }
 
     pub fn ax_console_write_bytes(buf: &[u8]) -> crate::AxResult<usize> {
-        axhal::console::write_bytes(buf);
-        Ok(buf.len())
+        // Colorize lines that start with the special tag used by the exercise.
+        const WITH_COLOR: &[u8] = b"[WithColor]";
+        if buf.starts_with(WITH_COLOR) {
+            axhal::console::write_bytes(b"\x1b[92;1m"); // bright green + bold
+            axhal::console::write_bytes(buf);
+            axhal::console::write_bytes(b"\x1b[0m"); // reset
+            Ok(buf.len())
+        } else {
+            axhal::console::write_bytes(buf);
+            Ok(buf.len())
+        }
     }
 
     pub fn ax_console_write_fmt(args: fmt::Arguments) -> fmt::Result {
