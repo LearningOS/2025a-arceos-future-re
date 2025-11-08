@@ -80,4 +80,5 @@ arceos_api = { workspace = true }
 axio = "0.1"
 axerrno = "0.1"
 kspin = "0.1"
-hashbrown = { version = "0.16.0", default-features = false, optional = true }
+# Enable "default-hasher" so HashMap::new()/with_capacity are available in no_std.
+hashbrown = { version = "0.16.0", default-features = false, features = ["default-hasher"], optional = true }

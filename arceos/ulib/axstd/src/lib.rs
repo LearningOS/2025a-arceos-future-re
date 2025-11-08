@@ -55,7 +55,16 @@ extern crate alloc;
 
 #[cfg(feature = "alloc")]
 #[doc(no_inline)]
-pub use alloc::{boxed, collections, format, string, vec};
+pub use alloc::{boxed, format, string, vec};
+
+// Extend `std::collections`-like APIs for no_std by providing HashMap/HashSet.
+// Keep all items from alloc::collections and add HashMap/HashSet aliases.
+#[cfg(feature = "alloc")]
+pub mod collections {
+    pub use alloc::collections::*;
+    // Re-export real hash tables for performance in no_std.
+    pub use hashbrown::{HashMap, HashSet};
+}
 
 #[doc(no_inline)]
 pub use core::{arch, cell, cmp, hint, marker, mem, ops, ptr, slice, str};
