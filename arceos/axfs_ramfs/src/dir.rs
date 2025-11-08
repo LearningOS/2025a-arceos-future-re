@@ -165,6 +165,67 @@ impl VfsNodeOps for DirNode {
         }
     }
 
+    fn rename(&self, src_path: &str, dst_path: &str) -> VfsResult {
+        // Only support rename (not move). We take the basename of dst_path
+        // and rename the src entry inside the same directory.
+        log::debug!(
+            "rename at ramfs, src_path: {}, dst_path: {}",
+            src_path, dst_path
+        );
+
+        // Helper to get basename of a path like "/tmp/f2" -> "f2"
+        fn basename(p: &str) -> &str {
+            let p = p.trim_end_matches('/');
+            let p = p.trim_start_matches('/');
+            match p.rsplit_once('/') {
+                Some((_, name)) => name,
+                None => p,
+            }
+        }
+
+        let (name, rest) = split_path(src_path);
+        if let Some(rest) = rest {
+            // Traverse into subdirectory according to src_path
+            match name {
+                "" | "." => self.rename(rest, dst_path),
+                ".." => self.parent().ok_or(VfsError::NotFound)?.rename(rest, dst_path),
+                _ => {
+                    let sub = self
+                        .children
+                        .read()
+                        .get(name)
+                        .ok_or(VfsError::NotFound)?
+                        .clone();
+                    sub.rename(rest, dst_path)
+                }
+            }
+        } else {
+            // Rename in the current directory
+            let new_name = basename(dst_path);
+            if name.is_empty() || name == "." || name == ".." {
+                return Err(VfsError::InvalidInput);
+            }
+            if new_name.is_empty() || new_name == "." || new_name == ".." {
+                return Err(VfsError::InvalidInput);
+            }
+
+            let mut children = self.children.write();
+            if !children.contains_key(name) {
+                return Err(VfsError::NotFound);
+            }
+            if new_name == name {
+                return Ok(());
+            }
+            // If destination exists, remove it first to match upper-layer semantics.
+            children.remove(new_name);
+            let node = children
+                .remove(name)
+                .ok_or(VfsError::NotFound)?;
+            children.insert(new_name.into(), node);
+            Ok(())
+        }
+    }
+
     axfs_vfs::impl_vfs_dir_default! {}
 }
 
